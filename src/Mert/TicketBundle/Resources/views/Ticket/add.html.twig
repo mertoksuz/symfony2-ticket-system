@@ -6,8 +6,62 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-6">
-                form
+            <div class="col-md-12">
+                <form action="{{ path('ticket_add') }}" class="form-horizontal" method="post" {{ form_enctype(form) }}>
+                    <fieldset>
+
+                        <!-- Form Name -->
+                        <legend>Open a Ticket</legend>
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="category">Category</label>
+                            <div class="col-md-4">
+                                {{ form_widget(form.category, {'attr': {'class': 'form-control input-md'}}) }}
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="title">Title</label>
+                            <div class="col-md-4">
+                                {{ form_widget(form.title, {'attr': {'placeholder': 'Ticket Title', 'class': 'form-control input-md'}}) }}
+                            </div>
+                        </div>
+
+                        <!-- Textarea -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="content">Ticket Content</label>
+                            <div class="col-md-4">
+                                {{ form_widget(form.content, {'attr': {'placeholder': 'Ticket Content', 'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="priority">Priority</label>
+                            <div class="col-md-4">
+                                {{ form_widget(form.priority, {'attr': {'placeholder': 'Ticket Content', 'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                        <!-- File Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="attachment">Attachment</label>
+                            <div class="col-md-4">
+                                {{ form_widget(form.file, {'attr': {'placeholder': 'Ticket Content', 'class': 'input-file'}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="priority"></label>
+                            <div class="col-md-4">
+                                <input class="btn btn-success" type="submit" value="Send" />
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
             </div>
         </div>
 

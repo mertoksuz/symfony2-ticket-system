@@ -2,6 +2,8 @@
 
 namespace Mert\TicketBundle\Controller;
 
+use Mert\TicketBundle\Entity\Ticket;
+use Mert\TicketBundle\Form\TicketType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,8 +44,32 @@ class DefaultController extends Controller
      */
     public function addAction(Request $request) {
 
+        $entityManager = $this->getDoctrine()->getManager();
+        $ticket = new Ticket();
+        $form = $this->createForm(new TicketType(), $ticket);
+
+        $form->handleRequest($request);
 
 
-        return $this->render('MertTicketBundle:Ticket:add.html.twig');
+
+        if ($request->isMethod('POST')) {
+
+                $user = $this->get('security.token_storage')->getToken()->getUser();
+                //$ticket->upload();
+                $ticket->setUser($user);
+                //$ticket->setCategory($request->get('category'));
+                $entityManager->persist($ticket);
+                $entityManager->flush();
+
+                $this->redirectToRoute("ticket_list");
+
+        }
+
+        $returnData = [
+            'categories' => $entityManager->getRepository("MertTicketBundle:Category")->findAll(),
+            'form' => $form->createView()
+        ];
+
+        return $this->render('MertTicketBundle:Ticket:add.html.twig', $returnData);
     }
 }

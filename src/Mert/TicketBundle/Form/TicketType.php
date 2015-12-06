@@ -15,7 +15,7 @@ class TicketType extends AbstractType
         $builder->add('title', 'text', array('label' => false));
         $builder->add('content', 'textarea', array('label' => false));
         $builder->add('priority', 'choice', array('choices' => array(1,2,3)));
-        $builder->add('attachment', 'file');
+        $builder->add('file', 'file');
     }
 
     public function configureOptions(OptionsResolver $resolver)
