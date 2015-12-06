@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Mert\TicketBundle\MertTicketBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Mert\UserBundle\MertUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

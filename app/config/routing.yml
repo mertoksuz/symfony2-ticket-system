@@ -1,3 +1,7 @@
+mert_user:
+    resource: "@MertUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 mert_ticket:
     resource: "@MertTicketBundle/Controller/"
     type:     annotation
