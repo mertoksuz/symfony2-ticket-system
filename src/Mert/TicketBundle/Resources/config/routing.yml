@@ -1,0 +1,3 @@
+mert_ticket_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MertTicketBundle:Default:index }
