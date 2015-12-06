@@ -23,20 +23,46 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/tickets", name="ticket_list")
      */
-    public function listAction() {
+    public function listAction(Request $request) {
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findAll();
-        } else {
+
+        if ($request->isMethod('POST')) {
+            $searchArray = [];
+            if (!empty($request->get('category'))) {
+                $searchArray['category'] = $request->get('category');
+            }
+            if (!empty($request->get('title'))) {
+                $searchArray['title'] = $request->get('title');
+            }
+            if (!empty($request->get('priority'))) {
+                $searchArray['priority'] = $request->get('priority');
+            }
+            if (!empty($request->get('created'))) {
+                $searchArray['created_at'] = $request->get('created');
+            }
+        }
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $user = $this->get('security.token_storage')->getToken()->getUser();
-            $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findAllOrderedByCreated($user->getId());
+            $searchArray['user_id'] = $user->getId();
+        }
+
+        if (!empty($searchArray)) {
+            $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findBy($searchArray);
+        }
+        else {
+            $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findAll();
         }
 
 
+
+        $categories = $entityManager->getRepository("MertTicketBundle:Category")->findAll();
+
         $returnData = [
-            'tickets' => $getMyTickets
+            'tickets' => $getMyTickets,
+            'categories' => $categories
         ];
 
         return $this->render('MertTicketBundle:Ticket:list.html.twig', $returnData);
@@ -57,7 +83,6 @@ class DefaultController extends Controller
 
 
         if ($request->isMethod('POST')) {
-
                 $user = $this->get('security.token_storage')->getToken()->getUser();
                 //$ticket->upload();
                 $ticket->setUser($user);

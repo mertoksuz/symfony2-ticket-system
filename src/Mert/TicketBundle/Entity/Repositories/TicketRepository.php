@@ -28,4 +28,13 @@ class TicketRepository extends EntityRepository
 
         return $p;
     }
+
+    /**
+     * @return array
+     * Overriding findAll
+     */
+    public function findAll()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    }
 }

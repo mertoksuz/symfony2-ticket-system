@@ -10,10 +10,24 @@
 
             {% if is_granted('ROLE_ADMIN') %}
             <div class="col-md-12">
-                <form class="form-inline" method="post" action="{{ path("ticket_list") }}">
-                    <select>
 
+                <h3>Search Tickets</h3>
+                <form class="form-inline" method="post" action="{{ path("ticket_list") }}">
+                    <select class="form-control" name="category">
+                        <option value=""></option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
                     </select>
+                    <select class="form-control" name="priority">
+                        <option value=""></option>
+                        <option value="1">Low</option>
+                        <option value="2">Normal</option>
+                        <option value="3">High</option>
+                    </select>
+                    <input class="form-control" type="text" name="created" placeholder="d/m/Y" />
+                    <input class="form-control" type="text" name="title" placeholder="by Title" />
+                    <input type="submit" value="Search" class="btn btn-warning" />
                 </form>
             </div>
             {% endif %}
@@ -26,15 +40,17 @@
                 {% endfor %}
                 <div class="row">
                     <div class="col-md-6"><h2>My Tickets</h2></div>
-                    <div class="col-md-6" style="text-align: right;"><h2><a href="" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Open a Ticket </a></h2></div>
+                    <div class="col-md-6" style="text-align: right;"><h2><a href="{{ path("ticket_add") }}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Open a Ticket </a></h2></div>
                 </div>
                 <table class="table table-bordered table-responsive">
                     <thead>
                         <tr>
                             <th>#Ticket ID</th>
                             <th>Ticket Title</th>
+                            <th>Ticket Category</th>
                             <th>Ticket Attachment</th>
                             <th>Ticket Created At</th>
+                            <th>Ticket Priority</th>
                             <th>Ticket Status</th>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <th>Ticket Actions</th>
@@ -52,8 +68,14 @@
                                     {{ ticket.title }}
                                 {% endif %}
                             </td>
+                            <td>{{ ticket.category.name }}</td>
                             <td><a href="/uploads/{{ ticket.path }}">Download Attachment</a></td>
                             <td>{{ ticket.createdAt|date("d-m-Y H:i:s", "Europe/Istanbul") }}</td>
+                            <td>
+                                {% if ticket.priority == 3 %} <span class="label label-primary">High</span>
+                                {% elseif ticket.priority == 2 %} <span class="label label-info">Normal</span>
+                                {% else %} <span class="label label-warning">Low</span> {% endif %}
+                            </td>
                             <td>{{ ticket.isSolved ? "<span class='label label-success'>Solved</span>" : "<span class='label label-danger'>Unsolved</span>" }}</td>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <td>
