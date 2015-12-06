@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>{% block title %} {% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/css/bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/css/style.css") }}" rel="stylesheet">
+
+    <script src="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/js/html5shiv.min.js") }}"></script>
+    <script src="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/js/respond.min.js") }}"></script>
+    <![endif]-->
+</head>
+<body>
+{% include "@MertTicket/Main/menu.html.twig" %}
+{% block body %}
+
+
+{% endblock %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/js/jquery.min.js") }}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/js/bootstrap.min.js") }}"></script>
+</body>
+</html>

@@ -3,11 +3,16 @@
 namespace Mert\TicketBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/", name="main_page")
+     */
+    public function indexAction()
     {
-        return $this->render('MertTicketBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('MertTicketBundle:Ticket:index.html.twig');
     }
 }
