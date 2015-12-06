@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Ticket
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Mert\TicketBundle\Entity\Repositories\TicketRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Ticket

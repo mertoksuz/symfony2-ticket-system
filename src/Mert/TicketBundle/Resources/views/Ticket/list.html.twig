@@ -17,6 +17,7 @@
                         <tr>
                             <th>#Ticket ID</th>
                             <th>Title</th>
+                            <th>Attachment</th>
                             <th>Created At</th>
                             <th>Status</th>
                         </tr>
@@ -26,6 +27,7 @@
                         <tr>
                             <td>{{ ticket.id }}</td>
                             <td>{{ ticket.title }}</td>
+                            <td><a href="/uploads/{{ ticket.path }}">Download Attachment</a></td>
                             <td>{{ ticket.createdAt|date("d-m-Y H:i:s", "Europe/Istanbul") }}</td>
                             <td>{{ ticket.isSolved ? "<span class='label label-success'>Solved</span>" : "<span class='label label-danger'>Unsolved</span>" }}</td>
                         </tr>

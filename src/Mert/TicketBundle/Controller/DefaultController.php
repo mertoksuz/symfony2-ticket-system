@@ -29,7 +29,7 @@ class DefaultController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findBy(array('user' => $user));
+        $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findAllOrderedByCreated($user->getId());
 
         $returnData = [
             'tickets' => $getMyTickets
@@ -60,6 +60,9 @@ class DefaultController extends Controller
                 //$ticket->setCategory($request->get('category'));
                 $entityManager->persist($ticket);
                 $entityManager->flush();
+
+                $this->get('session')->getFlashBag()->add('ticket_notice', 'Thank you ! Your ticket opened at '.date('d-m-Y H:i:s', time()).'. We will contact to you as soon.');
+
 
                 $this->redirectToRoute("ticket_list");
 
