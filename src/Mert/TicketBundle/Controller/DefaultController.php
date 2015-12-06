@@ -27,9 +27,13 @@ class DefaultController extends Controller
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findAll();
+        } else {
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findAllOrderedByCreated($user->getId());
+        }
 
-        $getMyTickets = $entityManager->getRepository("MertTicketBundle:Ticket")->findAllOrderedByCreated($user->getId());
 
         $returnData = [
             'tickets' => $getMyTickets
@@ -74,5 +78,30 @@ class DefaultController extends Controller
         ];
 
         return $this->render('MertTicketBundle:Ticket:add.html.twig', $returnData);
+    }
+
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/tickets/{ticket}/changestatus/{status}", name="tickets_change_status")
+     *
+     */
+    public function changeStatusAction(Ticket $ticket, $status) {
+
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->getRepository("MertTicketBundle:Ticket")->changeTicketStatus($ticket, $status);
+
+            $this->get('session')->getFlashBag()->add('ticket_notice', 'Ticket status changed.');
+
+            return $this->redirectToRoute("ticket_list");
+
+        } else {
+            return $this->redirectToRoute("main_page");
+        }
+
+
     }
 }

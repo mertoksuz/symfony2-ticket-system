@@ -22,8 +22,14 @@
 
 {% endblock %}
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/js/jquery.min.js") }}"></script>
+<script src="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/js/jquery-1.11.3.min.js") }}"></script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ asset("bundles/mertticket/bootstrap-3.3.6-dist/js/bootstrap.min.js") }}"></script>
+
 </body>
 </html>

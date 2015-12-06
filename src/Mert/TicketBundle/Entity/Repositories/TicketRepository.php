@@ -15,4 +15,17 @@ class TicketRepository extends EntityRepository
 
         return $query;
     }
+
+    public function changeTicketStatus($ticket, $status) {
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $q = $qb->update('MertTicketBundle:Ticket', 't')
+            ->set('t.is_solved', $qb->expr()->literal($status))
+            ->where('t.id = ?1')
+            ->setParameter(1, $ticket->getId())
+            ->getQuery();
+        $p = $q->execute();
+
+        return $p;
+    }
 }
