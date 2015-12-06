@@ -3,6 +3,7 @@
 namespace Mert\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Ticket
@@ -35,6 +36,8 @@ class Ticket
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+
+        $this->user = new ArrayCollection();
     }
 
     /**
@@ -113,6 +116,13 @@ class Ticket
      */
     private $is_solved;
 
+
+    /**
+     * @var integer
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="users")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
     /**
      * Get id
@@ -266,5 +276,30 @@ class Ticket
     public function getIsSolved()
     {
         return $this->is_solved;
+    }
+
+
+    /**
+     * Set user
+     *
+     * @param \Mert\TicketBundle\Entity\User $user
+     *
+     * @return Ticket
+     */
+    public function setUser(\Mert\TicketBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Mert\TicketBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

@@ -3,15 +3,67 @@
 namespace Mert\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Ticket
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class Ticket
 {
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    protected $updatedAt;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+
+        $this->user = new ArrayCollection();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
     /**
      * @var integer
      *
@@ -64,6 +116,13 @@ class Ticket
      */
     private $is_solved;
 
+
+    /**
+     * @var integer
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="users")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
     /**
      * Get id
@@ -194,5 +253,29 @@ class Ticket
     {
         return $this->attachment;
     }
-}
 
+    /**
+     * Set isSolved
+     *
+     * @param boolean $isSolved
+     *
+     * @return Ticket
+     */
+    public function setIsSolved($isSolved)
+    {
+        $this->is_solved = $isSolved;
+
+        return $this;
+    }
+
+    /**
+     * Get isSolved
+     *
+     * @return boolean
+     */
+    public function getIsSolved()
+    {
+        return $this->is_solved;
+    }
+
+}
