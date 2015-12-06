@@ -1,4 +1,14 @@
-symfony2-ticket-system
+Symfony2-Ticket-System
 ======================
 
-A Symfony project created on December 5, 2015, 7:35 pm.
+This project including TicketBundle, UserBundle
+
+What you can do ?
+
+- User can open a ticket
+- User can list only his tickets
+- Admin can see all tickets and ticket details
+- Admin can solve tickets
+- Admin can add comment to any ticket
+- Admin can search tickets by created date, priority etc.
+- Admin can create or delete category
