@@ -8,7 +8,11 @@
 
         <div class="starter-template">
             <h1>Welcome to Ticket System</h1>
-            <p class="lead">You can send a ticket about your problem or anything but you need <a href="{{ path("fos_user_security_login") }}">login</a> to system first.<br> All tickets will be read by admins.</p>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <p class="lead">Welcome ! Now you can see your tickets and their statuses. <a href="{{ path("fos_user_security_login") }}">Go to your tickets.</a>.</p>
+            {% else %}
+                <p class="lead">You can send a ticket about your problem or anything but you need <a href="{{ path("fos_user_security_login") }}">login</a> to system first.<br> All tickets will be read by admins.</p>
+            {% endif %}
         </div>
 
     </div><!-- /.container -->

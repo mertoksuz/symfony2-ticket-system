@@ -46,7 +46,7 @@ class DefaultController extends Controller
 
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $user = $this->get('security.token_storage')->getToken()->getUser();
-            $searchArray['user_id'] = $user->getId();
+            $searchArray['user'] = $user->getId();
         }
 
         if (!empty($searchArray)) {
