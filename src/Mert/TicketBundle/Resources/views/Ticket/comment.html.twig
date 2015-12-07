@@ -1,0 +1,45 @@
+{% extends "@MertTicket/Main/base.html.twig" %}
+
+{% block title %} Add Comment {% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="col-md-12">
+        {% for flashMessage in app.session.flashbag.get('comment_notice') %}
+
+            <div class="alert alert-success"> {{ flashMessage }} </div>
+
+        {% endfor %}
+
+        <h2>Add Comment</h2>
+        <form action="{{ path('tickets_add_comment', {'ticket':ticket.id}) }}" class="form-horizontal" method="post">
+            <!-- Select Basic -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="category">Ticket</label>
+                <div class="col-md-4">
+                    {{ form_widget(form.ticketId, {'attr': {'class': 'form-control input-md'}}) }}
+                </div>
+            </div>
+
+
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="content">Comment</label>
+                <div class="col-md-4">
+                    {{ form_widget(form.comment, {'attr': {'placeholder': 'Ticket Content', 'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="content"></label>
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-primary" value="Send Comment" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}

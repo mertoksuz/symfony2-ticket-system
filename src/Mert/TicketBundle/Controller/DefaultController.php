@@ -2,7 +2,9 @@
 
 namespace Mert\TicketBundle\Controller;
 
+use Mert\TicketBundle\Entity\Comment;
 use Mert\TicketBundle\Entity\Ticket;
+use Mert\TicketBundle\Form\CommentType;
 use Mert\TicketBundle\Form\TicketType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -129,4 +131,39 @@ class DefaultController extends Controller
 
 
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/tickets/{ticket}/comment", name="tickets_add_comment")
+     */
+    public function commentAction(Ticket $ticket, Request $request) {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $ticket = $entityManager->getRepository("MertTicketBundle:Ticket")->find($ticket);
+        $comment = new Comment();
+        $form = $this->createForm(new CommentType(), $comment);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $entityManager->persist($comment);
+                $entityManager->flush();
+
+                $this->get('session')->getFlashBag()->add('comment_notice', 'Comment added.');
+
+                return $this->redirectToRoute("tickets_add_comment", array('ticket' => $ticket->getId()));
+
+            }
+
+        }
+
+        $returnData = [
+            'ticket' => $ticket,
+            'form' => $form->createView()
+        ];
+
+        return $this->render("@MertTicket/Ticket/comment.html.twig", $returnData);
+    }
+
 }
