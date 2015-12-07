@@ -22,19 +22,19 @@
 $ composer install
 ```
 
-1. Configure `app/config/parameters.yml` file
+2. Configure `app/config/parameters.yml` file
 
-2. Create database
+3. Create database
 ```bash
 $ php app/console doctrine:database:create
 ```
 
-3. Create database schema
+4. Create database schema
 ```bash
 $ php app/console doctrine:schema:create
 ```
 
-4. Create and activate a user for login
+5. Create and activate a user for login
 ```bash
 $ php app/console fos:user:create
 ```
@@ -46,12 +46,12 @@ $ php app/console fos:user:activate <user_name>
 ```
 
 
-5. If you want to login as admin
+6. If you want to login as admin
 ```bash
 $ php app/console fos:user:promote <user_name> ROLE_ADMIN
 ```
 
-6. Load fixtures for test category data
+7. Load fixtures for test category data
 ```bash
 $ php app/console doctrine:fixtures:load
 ```
