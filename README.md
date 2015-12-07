@@ -55,3 +55,8 @@ $ php app/console fos:user:promote <user_name> ROLE_ADMIN
 ```bash
 $ php app/console doctrine:fixtures:load
 ```
+
+## Screenshots
+
+![alt tag](https://raw.githubusercontent.com/mertoksuz/symfony2-ticket-system/master/web/tickets_screen.png)
+![alt tag](https://raw.githubusercontent.com/mertoksuz/symfony2-ticket-system/master/web/ticket_add_screen.png)
