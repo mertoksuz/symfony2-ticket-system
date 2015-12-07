@@ -17,20 +17,20 @@
 
 ## Installation
 
-1. Install Composer.json
+* Install Composer.json
 ```bash
 $ composer install
 ```
-2. Configure `app/config/parameters.yml` file
-3. Create database
+* Configure `app/config/parameters.yml` file
+* Create database
 ```bash
 $ php app/console doctrine:database:create
 ```
-4. Create database schema
+* Create database schema
 ```bash
 $ php app/console doctrine:schema:create
 ```
-5. Create and activate a user for login
+* Create and activate a user for login
 ```bash
 $ php app/console fos:user:create
 ```
@@ -40,11 +40,11 @@ Activation
 ```bash
 $ php app/console fos:user:activate <user_name>
 ```
-6. If you want to login as admin
+* If you want to login as admin
 ```bash
 $ php app/console fos:user:promote <user_name> ROLE_ADMIN
 ```
-7. Load fixtures for test category data
+* Load fixtures for test category data
 ```bash
 $ php app/console doctrine:fixtures:load
 ```
