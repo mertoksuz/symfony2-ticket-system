@@ -50,3 +50,8 @@ $ php app/console fos:user:activate <user_name>
 ```bash
 $ php app/console fos:user:promote <user_name> ROLE_ADMIN
 ```
+
+6. Load fixtures for test category data
+```bash
+$ php app/console doctrine:fixtures:load
+```
