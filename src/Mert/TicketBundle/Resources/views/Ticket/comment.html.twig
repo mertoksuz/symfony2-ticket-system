@@ -11,6 +11,15 @@
             <div class="alert alert-success"> {{ flashMessage }} </div>
 
         {% endfor %}
+        <h2>Comments</h2>
+        {% for comment in comments %}
+            <div class="well">
+                <h4>{{ comment.createdAt|date('d-m-Y H:i:s') }}</h4>
+                <p>
+                    {{ comment.comment }}
+                </p>
+            </div>
+        {% endfor %}
 
         <h2>Add Comment</h2>
         <form action="{{ path('tickets_add_comment', {'ticket':ticket.id}) }}" class="form-horizontal" method="post">
@@ -18,7 +27,11 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="category">Ticket</label>
                 <div class="col-md-4">
-                    {{ form_widget(form.ticketId, {'attr': {'class': 'form-control input-md'}}) }}
+                    <select id="mert_ticket_bundle_comment_type_ticketId" name="mert_ticket_bundle_comment_type[ticketId]" class="form-control input-md">
+                        {% for t in tickets %}
+                            <option {% if ticket.id == t.id %} selected {% endif %} value="{{ t.id }}">{{ t.title }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
 

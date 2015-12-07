@@ -146,7 +146,6 @@ class DefaultController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
-            if ($form->isValid()) {
                 $entityManager->persist($comment);
                 $entityManager->flush();
 
@@ -154,11 +153,11 @@ class DefaultController extends Controller
 
                 return $this->redirectToRoute("tickets_add_comment", array('ticket' => $ticket->getId()));
 
-            }
-
         }
 
         $returnData = [
+            'tickets' => $entityManager->getRepository("MertTicketBundle:Ticket")->findAll(),
+            'comments' => $entityManager->getRepository("MertTicketBundle:Comment")->findBy(array('ticketId' => $ticket->getId())),
             'ticket' => $ticket,
             'form' => $form->createView()
         ];
