@@ -2,8 +2,10 @@
 
 namespace Mert\TicketBundle\Controller;
 
+use Mert\TicketBundle\Entity\Category;
 use Mert\TicketBundle\Entity\Comment;
 use Mert\TicketBundle\Entity\Ticket;
+use Mert\TicketBundle\Form\CategoryType;
 use Mert\TicketBundle\Form\CommentType;
 use Mert\TicketBundle\Form\TicketType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -169,9 +171,25 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/tickets/categories", name="tickets_categories")
      */
-    public function categoriesAction() {
+    public function categoriesAction(Request $request) {
 
-        return $this->render("@MertTicket/Ticket/categories.html.twig");
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $category = new Category();
+        $form = $this->createForm(new CategoryType(), $category);
+
+        if ($request->isMethod('POST')) {
+
+            $form->handleRequest($request);
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->get('session')->getFlashBag()->add('category_notice', 'Category added.');
+
+            return $this->redirectToRoute("tickets_categories");
+        }
+
+        return $this->render("@MertTicket/Ticket/categories.html.twig", array('form' => $form->createView()));
     }
 
 }

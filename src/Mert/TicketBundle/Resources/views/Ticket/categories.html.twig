@@ -3,5 +3,33 @@
 {% block title %} Categories {% endblock %}
 
 {% block body %}
-asdasd
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Add Category</h2>
+                    {% for flashMessage in app.session.flashbag.get('category_notice') %}
+
+                        <div class="alert alert-success"> {{ flashMessage }} </div>
+
+                    {% endfor %}
+                    <form action="{{ path('tickets_categories') }}" class="form-horizontal" method="post">
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="title">Title</label>
+                            <div class="col-md-4">
+                                {{ form_widget(form.name, {'attr': {'placeholder': 'Category Name', 'class': 'form-control input-md'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="priority"></label>
+                            <div class="col-md-4">
+                                <input class="btn btn-success" type="submit" value="Add" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 {% endblock %}
