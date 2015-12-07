@@ -165,4 +165,13 @@ class DefaultController extends Controller
         return $this->render("@MertTicket/Ticket/comment.html.twig", $returnData);
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/tickets/categories", name="tickets_categories")
+     */
+    public function categoriesAction() {
+
+        return $this->render("@MertTicket/Ticket/categories.html.twig");
+    }
+
 }

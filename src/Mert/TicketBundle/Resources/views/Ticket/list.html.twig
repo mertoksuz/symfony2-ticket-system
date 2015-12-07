@@ -85,7 +85,7 @@
                                         {% if ticket.isSolved == false %}
                                             <a href="{{ path("tickets_change_status", {'ticket': ticket.id, 'status':1}) }}" type="button" class="btn btn-success">Mark as Solved</a>
                                         {% endif %}
-                                        <a href="{{ path("tickets_add_comment" , {'ticket': ticket.id}) }}" type="button" class="btn btn-default">Add&List Comment</a>
+                                        <a href="{{ path("tickets_add_comment" , {'ticket': ticket.id}) }}" type="button" class="btn btn-default">Add & List Comment</a>
                                     </div>
                                 </td>
                             {% endif %}

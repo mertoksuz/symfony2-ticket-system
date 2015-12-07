@@ -16,6 +16,9 @@
                     <li><a href="{{ path('fos_user_security_logout') }}">
                         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                     </a></li>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <li><a href="{{ path("tickets_categories") }}">Categories</a></li>
+                    {% endif %}
                 {% else %}
                 <li><a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
                 {% endif %}
