@@ -26,6 +26,7 @@ class DefaultController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/tickets", name="ticket_list")
+     * @Security("is_granted('ROLE_ADMIN') and is_granted('ROLE_USER')")
      */
     public function listAction(Request $request) {
 
@@ -80,7 +81,7 @@ class DefaultController extends Controller
 
         $entityManager = $this->getDoctrine()->getManager();
         $ticket = new Ticket();
-        $form = $this->createForm(new TicketType(), $ticket);
+        $form = $this->createForm(TicketType::class, $ticket);
 
         $form->handleRequest($request);
 
@@ -143,7 +144,7 @@ class DefaultController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $ticket = $entityManager->getRepository("MertTicketBundle:Ticket")->find($ticket);
         $comment = new Comment();
-        $form = $this->createForm(new CommentType(), $comment);
+        $form = $this->createForm(CommentType::class, $comment);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -176,7 +177,7 @@ class DefaultController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
 
         $category = new Category();
-        $form = $this->createForm(new CategoryType(), $category);
+        $form = $this->createForm(CategoryType::class, $category);
 
         if ($request->isMethod('POST')) {
 
