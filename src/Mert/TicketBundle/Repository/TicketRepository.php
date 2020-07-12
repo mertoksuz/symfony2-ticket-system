@@ -1,5 +1,5 @@
 <?php
-namespace Mert\TicketBundle\Entity\Repositories;
+namespace Mert\TicketBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
